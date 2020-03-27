@@ -1,0 +1,75 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todo_list{
+  padding: 10px 20px 40px 40px;
+  width: 350px;
+  background-color: rgba(209, 202, 202, 0.411);
+  border-radius: 50px;
+}
+
+.input-search{
+  border: 3px solid rgb(54, 53, 53);
+  background-color: rgba(209, 202, 202, 0);
+  width: 250px;
+  font-size: 16px;
+  border-radius: 50px;
+  padding: 5px;
+}
+
+.input-add{
+  border: 3px solid rgb(54, 53, 53);
+  background-color: rgba(209, 202, 202, 0);
+  width: 250px;
+  font-size: 16px;
+  border-radius: 50px;
+  padding: 5px;
+}
+
+#addBtn{
+  width: 70px;
+  font-size: 14px;
+  border-radius: 50px;
+  color: #fff;
+  background-color: rgb(54, 53, 53);
+  border: 3px solid rgb(54, 53, 53);
+  padding: 6px 0;
+}
+
+#addBtn:hover{
+  color: #fff;
+  background-color: rgb(139, 134, 134);
+  border: 3px solid rgb(139, 134, 134);
+}
+
+#searchBtn{
+  width: 70px;
+  font-size: 14px;
+  border-radius: 50px;
+  color: #fff;
+  background-color: rgb(54, 53, 53);
+  border: 3px solid rgb(54, 53, 53);
+  padding: 6px 0;
+}
+
+#searchBtn:hover{
+  color: #fff;
+  background-color: rgb(139, 134, 134);
+  border: 3px solid rgb(139, 134, 134);
+}
+
+#list{
+  font-size: 18px;
+  padding-inline-start: 0;
+}
+
+#list li{
+  margin: 5px 0;
+  list-style-type: none;
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 30px;
+  width: 310px;
+}
