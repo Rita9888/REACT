@@ -7,7 +7,7 @@ function TodoListItem(props){
   return( 
   <li className="task">
     {props.todo}
-    <div className="liBtn">
+    <div className="li-btn">
       <DeleteBtn />
       <ImportantBtn />
     </div>

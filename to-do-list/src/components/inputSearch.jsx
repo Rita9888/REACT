@@ -3,7 +3,7 @@ import React from 'react'
 function InputSearch(){
   return (
     <div>
-      <input id='search' className="inputSearch" placeholder="type to search" />
+      <input id='search' className="input-search" placeholder="type to search" />
     </div>
   )
 }

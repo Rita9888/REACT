@@ -41,7 +41,7 @@ p{
   margin-left: 2px;
 }
 
-.inputSearch{
+.input-search{
   border-radius: 4px;
   border: 2px solid rgb(219, 216, 216);
   width: 310px;
@@ -49,7 +49,7 @@ p{
   padding: 0 5px;
 }
 
-.btnAll{
+.btn-all{
   border-radius: 4px 0 0 4px;
   border: 2px solid rgb(187, 183, 183);
   border-right: none;
@@ -58,13 +58,13 @@ p{
   color: rgb(128, 124, 124);
 }
 
-.btnAll:hover{
+.btn-all:hover{
   background-color: rgb(8, 136, 158);
   color:#fff;
   border-color:rgb(8, 136, 158);
 }
 
-.btnActive{
+.btn-active{
   border: none;
   border: 2px solid rgb(187, 183, 183);
   background-color: #fff;
@@ -72,13 +72,13 @@ p{
   color: rgb(128, 124, 124);
 }
 
-.btnActive:hover{
+.btn-active:hover{
   background-color: rgb(8, 136, 158);
   color:#fff;
   border-color:rgb(8, 136, 158);
 }
 
-.btnDone{
+.btn-done{
   border-radius: 0 4px 4px 0;
   border: 2px solid rgb(187, 183, 183);
   border-left: none;
@@ -87,7 +87,7 @@ p{
   color: rgb(128, 124, 124);
 }
 
-.btnDone:hover{
+.btn-done:hover{
   background-color: rgb(8, 136, 158);
   color:#fff;
   border-color:rgb(8, 136, 158);
@@ -110,11 +110,11 @@ ul{
   border-radius: 4px;
 }
 
-.liBtn{
+.li-btn{
   margin-right: 5px;
 }
 
-.deleteBtn{
+.delete-btn{
   color: red;
   border: 1.3px solid red;
   border-radius: 4px;
@@ -125,12 +125,12 @@ ul{
   
 }
 
-.deleteBtn:hover{
+.delete-btn:hover{
   background-color: red;
   color: #fff;
 }
 
-.importantBtn{
+.important-btn{
   color: rgba(9, 141, 86, 0.74);
   border: 1.3px solid rgba(9, 141, 86, 0.74);
   border-radius: 4px;
@@ -141,25 +141,25 @@ ul{
   position: relative;
 }
 
-.importantBtn:hover{
+.important-btn:hover{
   background-color: rgba(9, 141, 86, 0.74);
   color: #fff;
 }
 
-.addItem{
+.add-item{
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.inputAdd{
+.input-add{
   width:390px;
   border-radius: 4px;
   border: 2px solid rgb(219, 216, 216);
   height: 40px;
 }
 
-.addBtn{
+.add-btn{
   border-radius: 4px;
   border: 2px solid rgb(187, 183, 183);
   background-color: #fff;
@@ -172,7 +172,7 @@ ul{
   padding-top: 5px;
 }
 
-.addBtn:hover{
+.add-btn:hover{
   background-color: rgb(8, 136, 158);
   color:#fff;
   border-color:rgb(8, 136, 158);

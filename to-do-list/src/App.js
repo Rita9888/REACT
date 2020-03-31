@@ -3,10 +3,8 @@ import './App.css';
 import Header from './components/Header';
 import { InputSearch } from './components/inputSearch';
 import TodoList from './components/todoList';
-import SortButtonAll from './components/sortButtonAll';
-import SortButtonActive from './components/sortButtonActive';
-import SortButtonDone from './components/sortButtonDone';
-import { InputAdd } from './components/inputAdd';
+import FilterPanel from './components/filterPanel';
+import { AddTodo } from './components/addTodo';
 import QuantityTask from './components/quantityTask';
 
 
@@ -20,13 +18,11 @@ function App() {
       <div className="searchAndSort">
         <InputSearch />
         <div className="buttons">
-          <SortButtonAll /> 
-          <SortButtonActive />
-          <SortButtonDone />
+          <FilterPanel />
         </div>
       </div>
       <TodoList />
-      <InputAdd/>
+      <AddTodo/>
     </div>
 );
 }
