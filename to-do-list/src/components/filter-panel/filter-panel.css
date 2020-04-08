@@ -8,9 +8,9 @@
 }
 
 .filter-panel .btn-all:hover {
-  background-color: rgb(73, 72, 72);
+  background-color: rgb(107, 106, 106);
   color: #fff;
-  border-color: rgb(73, 72, 72);
+  border-color: rgb(107, 106, 106);
 }
 
 .filter-panel .btn-all.active {
@@ -28,9 +28,9 @@
 }
 
 .filter-panel .btn-active:hover {
-  background-color: rgb(73, 72, 72);
+  background-color: rgb(107, 106, 106);
   color: #fff;
-  border-color: rgb(73, 72, 72);
+  border-color: rgb(107, 106, 106);
 }
 
 .filter-panel .btn-active.active {
@@ -49,9 +49,9 @@
 }
 
 .filter-panel .btn-done:hover {
-  background-color: rgb(73, 72, 72);
+  background-color: rgb(107, 106, 106);
   color: #fff;
-  border-color: rgb(73, 72, 72);
+  border-color: rgb(107, 106, 106);
 }
 
 .filter-panel .btn-done.active {

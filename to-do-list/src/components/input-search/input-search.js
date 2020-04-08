@@ -2,16 +2,20 @@ import React from "react";
 
 import "./input-search.css";
 
-function InputSearch() {
-  return (
-    <div>
+class InputSearch extends React.Component {
+  onSearch = ({ target: { value } }) => {
+    this.props.searchValue(value);
+  };
+  render() {
+    return (
       <input
-        id="search"
+        type="text"
         className="input-search"
-        placeholder="type to search"
+        placeholder="Type to search"
+        onChange={this.onSearch}
       />
-    </div>
-  );
+    );
+  }
 }
 
 export { InputSearch };
