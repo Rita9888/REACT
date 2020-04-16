@@ -3,15 +3,29 @@ import React from "react";
 import Header from "../header";
 import RandomPlanet from "../random-planet";
 import ItemList from "../item-list";
-import PersonDetails from "../person-details";
+import ItemDetails from "../item-details";
 import ErrorComponent from "../error-component";
+import ErrorButton from "../error-button";
+import SwapiService from "../../services/swapi-service";
+import Row from "../row";
+import ErrorBoundary from "../error-boundary";
 import "./app.css";
-import ErrorButton from "../error-button/error-button";
+
+const Record = ({ item, field, label }) => {
+  return (
+    <li className="list-group-item">
+      <span className="term">{label}</span>
+      <span>{item[field]}</span>
+    </li>
+  );
+};
 
 class App extends React.Component {
+  swapiService = new SwapiService();
+
   state = {
     showRandomPlanet: true,
-    selectedItem: null,
+    selectedPerson: null,
     error: false,
   };
 
@@ -29,18 +43,40 @@ class App extends React.Component {
     });
   }
 
-  onSelectedItem = (id) => {
+  onSelectedItem = (selectedPerson) => {
     this.setState({
-      selectedItem: id,
+      selectedPerson,
     });
   };
 
   render() {
+    const { getAllPeople, getPerson, getPersonImage } = this.swapiService;
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
     if (this.state.error) {
       return <ErrorComponent />;
     }
+
+    const peopleList = (
+      <ItemList onSelectedItem={this.onSelectedItem} getData={getAllPeople}>
+        {(item) => `${item.name} | ${item.gender}`}
+      </ItemList>
+    );
+
+    const personDetails = (
+      <ErrorBoundary>
+        <ItemDetails
+          itemId={this.state.selectedPerson}
+          getData={getPerson}
+          getImage={getPersonImage}
+        >
+          <Record label="Name" field="name" />
+          <Record label="Gender" field="gender" />
+          <Record label="Birth Year" field="birthYear" />
+          <Record label="Eye Color" field="eyeColor" />
+        </ItemDetails>
+      </ErrorBoundary>
+    );
     return (
       <div>
         <Header />
@@ -53,14 +89,17 @@ class App extends React.Component {
           Toggle Random Planet
         </button>
         <ErrorButton />
-        <div className="row mb2">
-          <div className="col-md-6">
-            <ItemList onSelectedItem={this.onSelectedItem} />
-          </div>
-          <div className="col-md-6">
-            <PersonDetails selectedItem={this.state.selectedItem} />
-          </div>
-        </div>
+        <Row left={peopleList} right={personDetails} />
+        {/* <ItemList
+          onSelectedItem={this.onSelectedItem}
+          getData={this.swapiService.getAllPlanets}
+          renderItem={(item) => `${item.name}`}
+        />
+        <ItemList
+          onSelectedItem={this.onSelectedItem}
+          getData={this.swapiService.getAllStarships}
+          renderItem={(item) => `${item.name} | ${item.model} `}
+        /> */}
       </div>
     );
   }
