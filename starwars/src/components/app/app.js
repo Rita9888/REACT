@@ -2,13 +2,19 @@ import React from "react";
 
 import Header from "../header";
 import RandomPlanet from "../random-planet";
-import ItemList from "../item-list";
-import ItemDetails from "../item-details";
+import {
+  PersonList,
+  PersonDetails,
+  PlanetList,
+  PlanetDetails,
+} from "../sw-components";
+/* import ItemDetails from "../item-details"; */
 import ErrorComponent from "../error-component";
 import ErrorButton from "../error-button";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row";
 import ErrorBoundary from "../error-boundary";
+import { SwapiServiceProvider, SwapiServiceConsumer } from "../../context";
 import "./app.css";
 
 const Record = ({ item, field, label }) => {
@@ -20,13 +26,16 @@ const Record = ({ item, field, label }) => {
   );
 };
 
+export { Record };
+
 class App extends React.Component {
   swapiService = new SwapiService();
 
   state = {
     showRandomPlanet: true,
     selectedPerson: null,
-    error: false,
+    selectedPlanet: null,
+    /* error: false, */
   };
 
   toggleRandomPlanet = () => {
@@ -43,64 +52,57 @@ class App extends React.Component {
     });
   }
 
-  onSelectedItem = (selectedPerson) => {
+  onPersonSelected = (selectedPerson) => {
     this.setState({
       selectedPerson,
     });
   };
 
+  onPlanetSelected = (selectedPlanet) => {
+    this.setState({
+      selectedPlanet,
+    });
+  };
+
   render() {
-    const { getAllPeople, getPerson, getPersonImage } = this.swapiService;
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
-
-    if (this.state.error) {
+    const { selectedPerson, selectedPlanet } = this.state;
+    /* if (this.state.error) {
       return <ErrorComponent />;
-    }
+    } */
 
-    const peopleList = (
-      <ItemList onSelectedItem={this.onSelectedItem} getData={getAllPeople}>
-        {(item) => `${item.name} | ${item.gender}`}
-      </ItemList>
+    const peopleList = <PersonList onSelectedItem={this.onPersonSelected} />;
+
+    const planetList = (
+      <PlanetList onSelectedItem={this.onPlanetSelected}>
+        {(item) => `${item.name}`}
+      </PlanetList>
     );
 
-    const personDetails = (
-      <ErrorBoundary>
-        <ItemDetails
-          itemId={this.state.selectedPerson}
-          getData={getPerson}
-          getImage={getPersonImage}
-        >
-          <Record label="Name" field="name" />
-          <Record label="Gender" field="gender" />
-          <Record label="Birth Year" field="birthYear" />
-          <Record label="Eye Color" field="eyeColor" />
-        </ItemDetails>
-      </ErrorBoundary>
-    );
+    const personDetails = <PersonDetails itemId={selectedPerson} />;
+    const planetDetails = <PlanetDetails itemId={selectedPlanet} />;
+
     return (
-      <div>
-        <Header />
-        {planet}
+      <SwapiServiceProvider value={this.swapiService}>
+        <div>
+          <Header />
+          {planet}
 
-        <button
-          className="toggle-planet btn btn-warning btn-lg"
-          onClick={this.toggleRandomPlanet}
-        >
-          Toggle Random Planet
-        </button>
-        <ErrorButton />
-        <Row left={peopleList} right={personDetails} />
-        {/* <ItemList
-          onSelectedItem={this.onSelectedItem}
-          getData={this.swapiService.getAllPlanets}
-          renderItem={(item) => `${item.name}`}
-        />
-        <ItemList
-          onSelectedItem={this.onSelectedItem}
-          getData={this.swapiService.getAllStarships}
-          renderItem={(item) => `${item.name} | ${item.model} `}
-        /> */}
-      </div>
+          <div className="row mb2 button-row">
+            <button
+              className="toggle-planet btn btn-warning btn-lg"
+              onClick={this.toggleRandomPlanet}
+            >
+              Toggle Random Planet
+            </button>
+            <ErrorButton />
+          </div>
+          <div>
+            <Row left={peopleList} right={personDetails} />
+            <Row left={planetList} right={planetDetails} />
+          </div>
+        </div>
+      </SwapiServiceProvider>
     );
   }
 }

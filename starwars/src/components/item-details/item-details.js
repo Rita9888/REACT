@@ -36,7 +36,7 @@ export default class ItemDetails extends Component {
 
   render() {
     const { item } = this.state;
-    const { getImage, children } = this.props;
+    const { getImageUrl, children } = this.props;
     if (!item) {
       return <span> Select a person froma list</span>;
     }
@@ -48,7 +48,7 @@ export default class ItemDetails extends Component {
 
     return (
       <div className="person-details card">
-        <img className="person-image" src={getImage(item)} />
+        <img className="person-image" src={getImageUrl(item)} />
 
         <div className="card-body">
           <h4>{name}</h4>

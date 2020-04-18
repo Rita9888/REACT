@@ -3,20 +3,9 @@ import React, { Component } from "react";
 import SwapiService from "../../services/swapi-service";
 import "./item-list.css";
 import Spinner from "../spinner";
+import { withData } from "../../hocs";
 
-export default class ItemList extends Component {
-  swapiService = new SwapiService();
-
-  state = {
-    items: [],
-  };
-
-  componentDidMount() {
-    this.props.getData().then((data) => {
-      this.setState({ data });
-    });
-  }
-
+class ItemList extends Component {
   renderItems(arr) {
     return arr.map((item) => {
       return (
@@ -32,15 +21,12 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { data } = this.state;
-
-    if (!data) {
-      return <Spinner />;
-    }
+    const { data } = this.props;
     const items = this.renderItems(data);
     return <ul className="item-list list-group">{items}</ul>;
   }
 }
+export default ItemList;
 
 /*  state = {
     person: [],
