@@ -7,9 +7,9 @@ import {
   PersonDetails,
   PlanetList,
   PlanetDetails,
+  StarshipList,
+  StarshipDetails,
 } from "../sw-components";
-/* import ItemDetails from "../item-details"; */
-import ErrorComponent from "../error-component";
 import ErrorButton from "../error-button";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row";
@@ -35,6 +35,7 @@ class App extends React.Component {
     showRandomPlanet: true,
     selectedPerson: null,
     selectedPlanet: null,
+    selectedStarship: null,
     /* error: false, */
   };
 
@@ -45,12 +46,6 @@ class App extends React.Component {
       };
     });
   };
-
-  componentDidCatch() {
-    this.setState({
-      error: true,
-    });
-  }
 
   onPersonSelected = (selectedPerson) => {
     this.setState({
@@ -64,12 +59,15 @@ class App extends React.Component {
     });
   };
 
+  onStarshipSelected = (selectedStarship) => {
+    this.setState({
+      selectedStarship,
+    });
+  };
+
   render() {
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
-    const { selectedPerson, selectedPlanet } = this.state;
-    /* if (this.state.error) {
-      return <ErrorComponent />;
-    } */
+    const { selectedPerson, selectedPlanet, selectedStarship } = this.state;
 
     const peopleList = <PersonList onSelectedItem={this.onPersonSelected} />;
 
@@ -79,8 +77,13 @@ class App extends React.Component {
       </PlanetList>
     );
 
+    const starshipList = (
+      <StarshipList onSelectedItem={this.onStarshipSelected} />
+    );
+
     const personDetails = <PersonDetails itemId={selectedPerson} />;
     const planetDetails = <PlanetDetails itemId={selectedPlanet} />;
+    const starshipDetails = <StarshipDetails itemId={selectedStarship} />;
 
     return (
       <SwapiServiceProvider value={this.swapiService}>
@@ -100,6 +103,7 @@ class App extends React.Component {
           <div>
             <Row left={peopleList} right={personDetails} />
             <Row left={planetList} right={planetDetails} />
+            <Row left={starshipList} right={starshipDetails} />
           </div>
         </div>
       </SwapiServiceProvider>
