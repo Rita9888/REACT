@@ -2,15 +2,6 @@ import React from "react";
 import ItemDetails from "../item-details";
 import { Record } from "../app/app";
 import { withData, withService } from "../../hocs";
-import SwapiService from "../../services/swapi-service";
-import { SwapiServiceConsumer } from "../../context";
-
-const {
-  getPlanet,
-  getStarship,
-  getPlanetImage,
-  getStarshipImage,
-} = new SwapiService();
 
 const personDetails = ({ itemId, swapiService }) => {
   const { getPerson, getPersonImage } = swapiService;
@@ -20,7 +11,9 @@ const personDetails = ({ itemId, swapiService }) => {
       getData={getPerson}
       getImageUrl={getPersonImage}
     >
-      <Record field="name" label="Name" />
+      <Record field="name" label="Name: " />
+      <Record field="gender" label="Gender: " />
+      <Record field="yey-color" label="Yey color: " />
     </ItemDetails>
   );
 };
@@ -35,22 +28,31 @@ const planetDetails = ({ itemId, swapiService }) => {
       getData={getPlanet}
       getImageUrl={getPlanetImage}
     >
-      <Record field="name" label="Name" />
+      <Record field="name" label="Name: " />
+      <Record field="population" label="Population: " />
+      <Record field="diameter" label="Diameter: " />
     </ItemDetails>
   );
 };
 
 const PlanetDetails = withService(planetDetails);
 
-const StarshipDetails = ({ itemId }) => (
-  <ItemDetails
-    itemId={itemId}
-    getData={getStarship}
-    getImageUrl={getStarshipImage}
-  >
-    <Record field="model" label="Model" />
-  </ItemDetails>
-);
+const starshipDetails = ({ itemId, swapiService }) => {
+  const { getStarship, getStarshipImage } = swapiService;
+  return (
+    <ItemDetails
+      itemId={itemId}
+      getData={getStarship}
+      getImageUrl={getStarshipImage}
+    >
+      <Record field="name" label="Name: " />
+      <Record field="model" label="Model: " />
+      <Record field="length" label="Length: " />
+    </ItemDetails>
+  );
+};
+
+const StarshipDetails = withService(starshipDetails);
 
 export { PersonDetails, PlanetDetails, StarshipDetails };
 
