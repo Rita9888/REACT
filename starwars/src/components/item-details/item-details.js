@@ -5,6 +5,17 @@ import "./item-details.css";
 import ErrorButton from "../error-button";
 import ErrorBoundary from "../error-boundary";
 
+const Record = ({ item, field, label }) => {
+  return (
+    <li className="list-group-item">
+      <span className="term">{label}</span>
+      <span>{item[field]}</span>
+    </li>
+  );
+};
+
+export { Record };
+
 export default class ItemDetails extends Component {
   swapiService = new SwapiService();
 
@@ -17,7 +28,11 @@ export default class ItemDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.itemId !== prevProps.itemId) {
+    if (
+      this.props.itemId !== prevProps.itemId ||
+      this.props.getData !== prevProps.getData ||
+      this.props.getImageUrl !== prevProps.getImageUrl
+    ) {
       this.updateItem();
     }
   }
@@ -62,3 +77,7 @@ export default class ItemDetails extends Component {
     //return this.renderCard({ id, name, gender, birthYear, eyeColor });
   }
 }
+
+ItemDetails.defaultProps = {
+  itemId: 1,
+};

@@ -1,6 +1,6 @@
 import React from "react";
 import ItemDetails from "../item-details";
-import { Record } from "../app/app";
+import { Record } from "../item-details/item-details";
 import { withData, withService } from "../../hocs";
 
 const personDetails = ({ itemId, swapiService }) => {
@@ -13,7 +13,7 @@ const personDetails = ({ itemId, swapiService }) => {
     >
       <Record field="name" label="Name: " />
       <Record field="gender" label="Gender: " />
-      <Record field="yey-color" label="Yey color: " />
+      <Record field="eyeColor" label="Eye color: " />
     </ItemDetails>
   );
 };
@@ -55,18 +55,3 @@ const starshipDetails = ({ itemId, swapiService }) => {
 const StarshipDetails = withService(starshipDetails);
 
 export { PersonDetails, PlanetDetails, StarshipDetails };
-
-{
-  /* <ErrorBoundary>
-  <ItemDetails
-    itemId={this.state.selectedPerson}
-    getData={getPerson}
-    getImage={getPersonImage}
-  >
-    <Record label="Name" field="name" />
-    <Record label="Gender" field="gender" />
-    <Record label="Birth Year" field="birthYear" />
-    <Record label="Eye Color" field="eyeColor" />
-  </ItemDetails>
-</ErrorBoundary>; */
-}

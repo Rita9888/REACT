@@ -1,5 +1,7 @@
 import React from "react";
 
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import Header from "../header";
 import RandomPlanet from "../random-planet";
 import {
@@ -14,29 +16,22 @@ import ErrorButton from "../error-button";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row";
 import ErrorBoundary from "../error-boundary";
+import PeoplePage from "../page/people-page";
+import PersonPage from "../page/person-page";
+import PlanetPage from "../page/planet-page";
+import StarshipPage from "../page/starship-page";
+import StarshipsPage from "../page/starships-page";
 import { SwapiServiceProvider, SwapiServiceConsumer } from "../../context";
 import "./app.css";
-
-const Record = ({ item, field, label }) => {
-  return (
-    <li className="list-group-item">
-      <span className="term">{label}</span>
-      <span>{item[field]}</span>
-    </li>
-  );
-};
-
-export { Record };
 
 class App extends React.Component {
   swapiService = new SwapiService();
 
   state = {
     showRandomPlanet: true,
-    selectedPerson: null,
-    selectedPlanet: null,
+    selectedPerson: 1,
+    selectedPlanet: 1,
     selectedStarship: null,
-    /* error: false, */
   };
 
   toggleRandomPlanet = () => {
@@ -47,65 +42,39 @@ class App extends React.Component {
     });
   };
 
-  onPersonSelected = (selectedPerson) => {
-    this.setState({
-      selectedPerson,
-    });
-  };
-
-  onPlanetSelected = (selectedPlanet) => {
-    this.setState({
-      selectedPlanet,
-    });
-  };
-
-  onStarshipSelected = (selectedStarship) => {
-    this.setState({
-      selectedStarship,
-    });
-  };
-
   render() {
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
-    const { selectedPerson, selectedPlanet, selectedStarship } = this.state;
-
-    const peopleList = <PersonList onSelectedItem={this.onPersonSelected} />;
-
-    const planetList = (
-      <PlanetList onSelectedItem={this.onPlanetSelected}>
-        {(item) => `${item.name}`}
-      </PlanetList>
-    );
-
-    const starshipList = (
-      <StarshipList onSelectedItem={this.onStarshipSelected} />
-    );
-
-    const personDetails = <PersonDetails itemId={selectedPerson} />;
-    const planetDetails = <PlanetDetails itemId={selectedPlanet} />;
-    const starshipDetails = <StarshipDetails itemId={selectedStarship} />;
 
     return (
       <SwapiServiceProvider value={this.swapiService}>
-        <div>
-          <Header />
-          {planet}
-
-          <div className="row mb2 button-row">
-            <button
-              className="toggle-planet btn btn-warning btn-lg"
-              onClick={this.toggleRandomPlanet}
-            >
-              Toggle Random Planet
-            </button>
-            <ErrorButton />
-          </div>
+        <ErrorBoundary>
           <div>
-            <Row left={peopleList} right={personDetails} />
-            <Row left={planetList} right={planetDetails} />
-            <Row left={starshipList} right={starshipDetails} />
+            <Router>
+              <div>
+                <Header />
+                {planet}
+                <div className="row mb2 button-row">
+                  <button
+                    className="toggle-planet btn btn-warning btn-lg"
+                    onClick={this.toggleRandomPlanet}
+                  >
+                    Toggle Random Planet
+                  </button>
+                  <ErrorButton />
+                </div>
+                <Switch>
+                  <Route path="/" render={() => <h1>Welcome!</h1>} exact />
+                  <Route path="/people" component={PeoplePage} exact />
+                  <Route path="/people/:id" component={PersonPage} />
+                  <Route path="/planets/:id?" component={PlanetPage} />
+                  <Route path="/starships" component={StarshipsPage} exact />
+                  <Route path="/starships/:id" component={StarshipPage} />
+                  <Route render={() => <h3>Page not found!</h3>} exact />
+                </Switch>
+              </div>
+            </Router>
           </div>
-        </div>
+        </ErrorBoundary>
       </SwapiServiceProvider>
     );
   }

@@ -7,10 +7,12 @@ const withData = (View, getData) => {
   return class extends React.Component {
     state = {
       data: null,
+      error: false,
+      loading: true,
     };
     componentDidMount() {
       getData().then((data) => {
-        this.setState({ data });
+        this.setState({ data, loading: false });
       });
     }
 
@@ -21,8 +23,8 @@ const withData = (View, getData) => {
     }
 
     render() {
-      const { data } = this.state;
-      if (!data) {
+      const { data, loading } = this.state;
+      if (loading) {
         return <Spinner />;
       }
       return (
